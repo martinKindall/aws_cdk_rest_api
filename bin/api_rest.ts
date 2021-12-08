@@ -6,5 +6,6 @@ import {languageType} from "../interfaces/Language";
 
 const app = new cdk.App();
 new ApiRestStack(app, 'ApiRestStack', {
-    objectStructure: languageType
+    objectStructure: languageType,
+    tableKey: 'name'
 });

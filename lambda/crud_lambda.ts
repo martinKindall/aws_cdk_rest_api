@@ -1,7 +1,12 @@
 
-exports.handler = async (event: any) => {
+exports.read = async (event: any) => {
     console.log(event);
-    sendRes(200, "Just testing");
+    return sendRes(200, "Just testing");
+};
+
+exports.create = async (event: any) => {
+    console.log(event);
+    return sendRes(200, "Language created!");
 };
 
 const sendRes = (status:number, body:string) => {
