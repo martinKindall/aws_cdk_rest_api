@@ -7,9 +7,36 @@ interface EventCreate {
     body: string;
 }
 
-exports.read = async (event: any) => {
+interface EventRead {
+    queryStringParameters: { name?: string };
+}
+
+exports.read = async (event: EventRead) => {
     console.log(event);
-    return sendRes(200, "Just testing");
+    const { queryStringParameters: { name } } = event;
+
+    if (name === undefined) {
+        return sendRes(400, "Provide the key to search name as querystring");
+    }
+
+    const dbQuery = {
+        TableName: process.env.LANGUAGE_TABLE_NAME!,
+        KeyConditionExpression: "#keyName = :langName",
+        ExpressionAttributeNames:{
+            "#keyName": "name"
+        },
+        ExpressionAttributeValues: {
+            ":langName": name
+        }
+    };
+
+    const queryResult = await dynamo.query(dbQuery).promise();
+
+    if (queryResult?.Count === 0) {
+        return sendRes(204, "");
+    }
+
+    return sendRes(200, JSON.stringify(queryResult?.Items || "unexpected error"));
 };
 
 exports.create = async (event: EventCreate) => {
