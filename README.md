@@ -1,8 +1,8 @@
-# Welcome to your CDK TypeScript project!
+# Simple REST Api using Http Api Gateway, Lambda and DynamoDB
 
-This is a blank project for TypeScript development with CDK.
+The current project builds the following diagram in a Cloudformation Stack:
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+<img src="./diagram.png" width="500">
 
 ## Useful commands
 
